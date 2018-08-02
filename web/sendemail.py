@@ -5,7 +5,8 @@ from email.utils import formataddr
 
 my_sender='2392315223@qq.com'    # 发件人邮箱账号
 my_pass = 'vuhzsrhrfbiadijc'              # 发件人邮箱密码(当时申请smtp给的口令)
-my_user='2147353584@qq.com'      # 收件人邮箱账号，我这边发送给自己
+my_user='2147353584@qq.com'      # 收件人邮箱账号
+
 
 def mail(user_email, url):
     ret=True
