@@ -19,5 +19,5 @@ from web import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^test/', views.testview),
+    url(r'^verifycode/(?P<code>\d*)/$', views.verifycode),
 ]
