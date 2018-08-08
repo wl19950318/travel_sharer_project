@@ -1,0 +1,236 @@
+.find-box {
+    margin: auto;
+    width: 980px;
+}
+
+.find-top {
+    width: 457px;
+}
+
+.find-top > p {
+    padding-top: 68px;
+    font-family: "eb garamond", serif;
+    font-size: 36px;
+}
+
+.top-content {
+    padding: 30px 0;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.content-info {
+    flex: 1;
+    width: 441px;
+    line-height: 1.5em;
+    font-family: avenir-lt-w01_35-light1475496, sans-serif;
+    font-size: 15px;
+    color: rgb(105, 105, 105);
+    word-break: break-all;
+    max-height: 62px;
+    overflow: hidden;
+    padding-right: 80px;
+    box-sizing: border-box;
+}
+
+.content-btn {
+    flex: 1;
+    padding-left: 80px;
+    box-sizing: border-box;
+}
+
+.content-btn a {
+    color: #000;
+}
+
+.content-btn-href {
+    display: inline-block;
+    border: solid rgba(0, 0, 0, 1) 2px;
+    border-radius: 5px;
+    font-family: dinneuzeitgroteskltw01-_812426,sans-serif;
+    font-size: 36px;
+    padding: 10px 40px;
+    margin-right: 30px;
+}
+
+.content-btn-href:hover {
+    background: rgb(179,179,179);
+    border: 2px solid rgb(179,179,179);
+}
+
+.top-bottom {
+    display: flex;
+    align-items: flex-end;
+    padding: 0 40px 30px 40px;
+}
+
+.bottom-label {
+    flex: 1;
+    margin-top: -30px;
+}
+
+.bottom-label-span {
+    border-radius: 20px;
+    border: solid rgba(0, 0, 0, 1) 2px;
+    width: 113px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    color: #323232;
+    font-size: 13px;
+    font-family: avenir-lt-w01_85-heavy1475544, sans-serif;
+}
+
+.bottom-label-span:hover {
+    background: rgb(50,50,50);
+    color: #fff;
+}
+
+.btn-tip {
+    flex: 2;
+}
+
+.btn-tip span {
+    width: 302px;
+    word-wrap: break-word;
+    font-size: 30px;
+    font-family: "palatino linotype", serif;
+}
+
+.find-content-block {
+    padding: 100px;
+    column-count: 2;
+    column-gap: 0;
+}
+
+.block-content {
+    break-inside: avoid;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    width: 361px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: rgb(176, 169, 134);
+    border-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 13px 0px;
+    overflow: hidden;
+    transform: translateZ(0px);
+    margin-top: 30px;
+}
+
+.block-content > h3 {
+    font-size: 30px;
+    color: #333;
+    font-family: anton, sans-serif;
+    letter-spacing: 0.08em;
+}
+
+.block-content > hr {
+    border: 2px solid rgba(242, 191, 94, 0.7);
+    margin: 8px auto;
+}
+
+.block-detail {
+    font-size: 16px;
+    font-family: avenir-lt-w01_35-light1475496, serif;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.block-detail-img {
+    width: 320px;
+    height: 350px;
+    text-align: center;
+    margin: 10px auto;
+}
+
+.block-detail-img img {
+    width: 320px;
+    height: 350px;
+}
+
+
+
+/* discover.css start */
+.discover-title-content {
+    display: block;
+    margin-bottom: -100px;
+}
+
+.discover-title-content .content-info {
+    width: 690px;
+}
+
+.discover-block {
+    background: #fff;
+    padding: 30px;
+}
+
+.discover-block-box {
+    column-width: 400px;
+    -moz-column-width: 400px;
+    -webkit-column-width: 400px;
+}
+
+.discover-block-img {
+    padding: 1px;
+    margin-bottom: 10px;
+    -moz-page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+    background: rgba(0,0,0,.3)
+}
+
+.discover-block-img > img {
+    width: 100%;
+}
+/* discover.css end */
+
+
+/* members.css start */
+.member-box {
+    padding: 60px;
+    box-sizing: border-box;
+    font-family: avenir-lt-w01_35-light1475496, sans-serif;
+}
+
+.member-box p {
+    text-align: center;
+    max-width: 400px;
+    word-break: break-all;
+    word-wrap: break-word;
+    margin: auto;
+}
+
+.member-box p:nth-child(1) {
+    font-size: 26px;
+    margin-bottom: 20px;
+
+}
+
+.member-box p:nth-child(2) {
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.member-btn {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.member-btn a {
+    color: #fff;
+}
+
+.member-btn a span {
+    background: rgba(25,192,199,1);
+    padding: 10px 60px;
+}
+
+.member-btn a span:hover {
+    background: rgba(25,192,199,.7);
+    padding: 10px 60px;
+}
+/* members.css end */
