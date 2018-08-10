@@ -1,0 +1,51 @@
+<div class="nav-top">
+    <div class="nav-login">
+        <div class="nav-head">
+
+                <img class="login-img" src="/static/img/head.png" alt="">
+                 {%if request.session.email|default:'' != ''%}
+                    <a href="/"><span>{{request.session.email}}</span></a>|<a href="/loginout"><span>login out</span></a>
+                {% else %}
+                     <a href="/login"><span>Log In</span></a> <a href="/register"><span>/Sign Up</span></a>
+                {% endif %}
+        </div>
+        <div class="nav-link">
+            <a href="https://www.facebook.com/">
+                <img src="/static/img/fb.png" alt="">
+            </a>
+            <a href="https://www.instagram.com/">
+                <img src="/static/img/ins.png" alt="">
+            </a>
+        </div>
+    </div>
+    <nav class="nav-list">
+        <ul class="nav-detail">
+            <li><a href="/" class="nav-action">Hmoe</a></li>
+            <li><a href="/travelNote">Travel Note</a></li>
+            <li>
+                <a href="/pics">Find Traveller</a>
+{#                    <ul class="nav-second-nav">#}
+{#                        <li><a href="post_artcle.html">pitcure</a></li>#}
+{#                        <li><a href="post_artcle.html">article</a></li>#}
+{#                    </ul>#}
+            </li>
+            <li><a href="/discover">Discover</a></li>
+            <li>
+                <a href="#">My Post</a>
+                <ul class="nav-second-nav">
+                    <li><a href="/post_pic">pitcure</a></li>
+                    <li><a href="/post_artcle">article</a></li>
+                </ul>
+            </li>
+            <li><a href="/members">Members</a></li>
+            <li><a href="/collection">My Collection</a></li>
+            <li>
+                <a href="/about">About</a>
+            </li>
+        </ul>
+        <div class="nav-search">
+            <img src="/static/img/search.png" alt="">
+            <input type="text" placeholder="Search Site">
+        </div>
+    </nav>
+</div>

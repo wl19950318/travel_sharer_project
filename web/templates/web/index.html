@@ -1,77 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Travel Sharer</title>
-    <link rel="stylesheet" href="/static/css/font-family.css">
-    <link rel="stylesheet" href="/static/css/swiper.css">
-    <link rel="stylesheet" href="/static/css/index.css">
-    <script src="/static/js/jquery-3.3.1.min.js"></script>
-    <script src="/static/js/common.js"></script>
-    <script src="/static/js/swiper.js"></script>
-</head>
-<script>
-    $('.nav-detail li a').removeClass('nav-action');
-</script>
-<body>
-    <!-- 导航 start -->
-    <div class="nav-top">
-        <div class="nav-login">
-            <div class="nav-head">
+{%extends 'base.html'%}
 
-                    <img class="login-img" src="/static/img/head.png" alt="">
-                    <a href="/login"><span>Log In</span></a> <a href="/register"><span>/Sign Up</span></a>
-
-            </div>
-            <div class="nav-link">
-                <a href="https://www.facebook.com/">
-                    <img src="/static/img/fb.png" alt="">
-                </a>
-                <a href="https://www.instagram.com/">
-                    <img src="/static/img/ins.png" alt="">
-                </a>
-            </div>
-        </div>
-        <nav class="nav-list">
-            <ul class="nav-detail">
-                <li><a href="#" class="nav-action">Hmoe</a></li>
-                <li><a href="travelNote.html">Travel Note</a></li>
-                <li>
-                    <a href="findTraveller.html">Find Traveller</a>
-                    <ul class="nav-second-nav">
-                        <li><a href="discover.html">pitcure</a></li>
-                        <li><a href="discover.html">article</a></li>
-                    </ul>
-                </li>
-                <li><a href="discover.html">Discover</a></li>
-                <li>
-                    <a href="myPost.html">My Post</a>
-                    <ul class="nav-second-nav">
-                        <li><a href="discover.html">pitcure</a></li>
-                        <li><a href="discover.html">article</a></li>
-                    </ul>
-                </li>
-                <li><a href="members.html">Members</a></li>
-                <li><a href="myCollection.html">My Collection</a></li>
-                <li>
-                    <a href="about.html">About</a>
-                    <ul class="nav-second-nav">
-                        <li><a href="discover.html">pitcure</a></li>
-                        <li><a href="discover.html">article</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <div class="nav-search">
-                <img src="/static/img/search.png" alt="">
-                <input type="text" placeholder="Search Site">
-            </div>
-        </nav>
-    </div>
-    <!-- 导航 end -->
-    <!-- 中部 start -->
-    <div class="center-box">
+{%block content%}
+     <div class="center-box">
         <!-- 轮播 start -->
         <div class="swiper-container">
             <div class="swiper-wrapper">
@@ -80,7 +10,7 @@
             </div>
             <!-- 如果需要分页器 -->
             <div class="swiper-pagination swiper-pagination-white"></div>
-            
+
             <!-- 如果需要导航按钮 -->
             <div class="swiper-button-prev swiper-button-white"></div>
             <div class="swiper-button-next swiper-button-white"></div>
@@ -91,12 +21,11 @@
             <div class="center-text-font-3">goes here</div>
         </div>
         <!-- 轮播 end -->
-        
         <!-- 内容 start -->
         <section class="home-content">
             <div class="home-title">
                 <div class="title-line"></div>
-                <div class="title-block"> 
+                <div class="title-block">
                     <span>Discover more possibilities for your trip.</span>
                 </div>
             </div>
@@ -129,158 +58,66 @@
                 <span style="border-right: 2px solid #CDBCC7;width: 2px;"></span>
             </div>
             <div class="title-type-div title-type-1">
-                Destination
+                <a href="/discoverType/2">Destination</a>
             </div>
             <div class="title-type-div title-type-2">
-                Eat
+               <a href="/discoverType/3"> Hotel</a>
             </div>
             <div class="title-type-div title-type-3">
-                Hotel
+                <a href="/discoverType/4"> Summer</a>
             </div>
         </section>
         <div class="content-detail">
             <ul>
-                <li class="content-detail-li">
-                    <div class="content-div">
-                        <div class="div-img">
-                            <a href="">
-                                <img src="/static/img/detail1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="div-data">
-                            <span>January 14, 2017</span>
-                        </div>
-                        <div class="div-title">
-                            <span>XXXX</span>
-                        </div>
-                        <div class="div-content">
-                            <span>XXXXXXXXXXXXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
-                        </div>
-                        <div class="div-line"></div>
-                        <div class="div-author">
-                            <div class="author-img">
-                                <img src="/static/img/detailH.png" alt="">
-                            </div>
-                            <div class="author-name">
-                                <span>xxxxx</span>
-                            </div>
-                            <div class="author-mail">
-                                <a href="xxx@xxxxx.com">
-                                    <span>xxx@xxxxx.com</span>
+                {% for note in notes %}
+                    <li class="content-detail-li">
+                        <div class="content-div">
+                            <div class="div-img">
+                                <a href="">
+                                    <img src="{{ note.picUrl }}" alt="" height="279px" width="265px">
                                 </a>
                             </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="content-detail-li">
-                    <div class="content-div">
-                        <div class="div-img">
-                            <a href="">
-                                <img src="/static/img/detail2.png" alt="">
-                            </a>
-                        </div>
-                        <div class="div-data">
-                            <span>January 14, 2017</span>
-                        </div>
-                        <div class="div-title">
-                            <span>XXXX</span>
-                        </div>
-                        <div class="div-content">
-                            <span>XXXXXXXXXXXXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
-                        </div>
-                        <div class="div-line"></div>
-                        <div class="div-author">
-                            <div class="author-img">
-                                <img src="/static/img/detailH.png" alt="">
+                            <div class="div-data">
+                                <span>{{ note.createTime }}</span>
                             </div>
-                            <div class="author-name">
-                                <span>xxxxx</span>
+                            <div class="div-title">
+                                <span>{{ note.title }}</span>
                             </div>
-                            <div class="author-mail">
-                                <a href="xxx@xxxxx.com">
-                                    <span>xxx@xxxxx.com</span>
-                                </a>
+                            <div class="div-content">
+                                <span>{{ note.remark }}</span>
+                            </div>
+                            <div class="div-line"></div>
+                            <div class="div-author">
+                                <div class="author-img">
+                                    <img src="/static/img/detailH.png" alt="">
+                                </div>
+                                <div class="author-name">
+                                    <span>{{ note.author }}</span>
+                                </div>
+                                <div class="author-mail">
+                                    <a href="xxx@xxxxx.com">
+                                        <span>{{ note.userId.email }}</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-                <li class="content-detail-li">
-                    <div class="content-div">
-                        <div class="div-img">
-                            <a href="">
-                                <img src="/static/img/detail2.png" alt="">
-                            </a>
-                        </div>
-                        <div class="div-data">
-                            <span>January 14, 2017</span>
-                        </div>
-                        <div class="div-title">
-                            <span>XXXX</span>
-                        </div>
-                        <div class="div-content">
-                            <span>XXXXXXXXXXXXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxXXXXXXXXxxxxxxxxxxxxxxxxxxxxxxxxXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
-                        </div>
-                        <div class="div-line"></div>
-                        <div class="div-author">
-                            <div class="author-img">
-                                <img src="/static/img/detailH.png" alt="">
-                            </div>
-                            <div class="author-name">
-                                <span>xxxxx</span>
-                            </div>
-                            <div class="author-mail">
-                                <a href="xxx@xxxxx.com">
-                                    <span>xxx@xxxxx.com</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
-        <!-- 内容 end -->
-    </div>
-    <!-- 中部 end -->
-    <!-- 底部 start -->
-    <footer class="bottom-box">
-        <div class="bottom-bg">
-            <img src="/static/img/bottomBg.png" alt="">
-        </div>
-        <div class="bottom-content">
-            <div class="content-left">
-                <!-- <img src="img/bottomImg.png" alt=""> -->
-            </div>
-            <div class="content-right">
-                <div class="about-us">ABOUT US</div>
-                <div class="us-info">
-                    <span>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
-                    
-                    <span class="us-info-add">​XXXXXXXXXXXXXXXXXXXXXXXXXXXX</span>
-                </div>
-                <div class="us-more">
-                    <a href="about.html" class="us-more-a">
-                        <div>
-                            READ MORE
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-copy">
-            <div class="copy-css">© 2019 by Travel Sharer.</div>
-        </div>
-    </footer>
-    <!-- 底部 end -->
-<script>        
+{%endblock content%}
+
+{%block endscript%}
+<script>
     var mySwiper = new Swiper ('.swiper-container', {
         direction: 'horizontal',
         loop: true,
-        
+
         // 如果需要分页器
         pagination: {
             el: '.swiper-pagination',
         },
-        
+
         // 如果需要前进后退按钮
         navigation: {
             nextEl: '.swiper-button-next',
@@ -291,8 +128,6 @@
             stopOnLastSlide: false,
             disableOnInteraction: true,
         },
-    })        
+    })
 </script>
-</body>
-</body>
-</html>
+{%endblock endscript%}

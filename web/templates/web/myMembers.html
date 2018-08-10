@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="center-box">
+    <div class="user-list">
+        <div class="add-user">
+        </div>
+        <table class="list-box">
+            <thead>
+                <tr>
+                    <th>travel note</th>
+                    <th>email</th>
+                    <th>comment time</th>
+                    <th>comment</th>
+                    <th>operate</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for noteComment in noteComments %}
+                <tr>
+                    <td><a href="/detailPage/{{ noteComment.noteId.id }}" target="_blank">{{ noteComment.noteId.title }}</a></td>
+                    <td>{{ noteComment.userId.email }}</td>
+                    <td>{{ noteComment.createTime }}</td>
+                    <td>{{ noteComment.comment }}</td>
+                    <td><a href="/delTraveNoteComment/{{ noteComment.id }}" class="delete-comment">Del</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock content%}

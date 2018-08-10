@@ -113,12 +113,6 @@ button {
     font-size: 14px;
 }
 
-.error-msg {
-    font-family: Helvetica;
-    font-size: 14px;
-    color: red;
-}
-
 .link-login {
     font-weight: bold;
     color: #000;
@@ -191,6 +185,7 @@ button {
 }
 
 .log-in {
+    display: none;
 }
 
 .reset-pwd{

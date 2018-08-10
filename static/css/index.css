@@ -137,6 +137,12 @@ a {
 
 .nav-second-nav li {
     display: block;
+    width: 100%;
+}
+
+.nav-second-nav li a {
+    display: block; 
+    width: 100%;
 }
 
 .nav-detail li:hover .nav-second-nav {

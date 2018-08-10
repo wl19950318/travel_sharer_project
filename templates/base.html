@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Travel Sharer</title>
+    <link rel="stylesheet" href="/static/css/font-family.css">
+    <link rel="stylesheet" href="/static/css/swiper.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/travel-note.css">
+    <link rel="stylesheet" href="/static/css/find-traveller.css">
+    <script src="/static/js/jquery-3.3.1.min.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/swiper.js"></script>
+    {%block headscript%}{%endblock headscript%}
+</head>
+<script>
+    $('.nav-detail li a').removeClass('nav-action');
+</script>
+<body>
+    <!-- 导航 start -->
+    {% include 'head.html' %}
+    <!-- 导航 end -->
+
+    <!-- 中部 start -->
+    {%block content%}{%endblock content%}
+    <!-- 中部 end -->
+    <!-- 底部 start -->
+    {% include 'footer.html' %}
+    <!-- 底部 end -->
+
+    {%block endscript%}{%endblock endscript%}
+
+</body>
+</body>
+</html>
