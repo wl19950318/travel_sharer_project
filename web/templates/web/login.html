@@ -47,7 +47,7 @@
                     <div class="box-line"></div>
                     <div class="box-right">
                         <div class="box-input">
-                            <button class="btn-fb">Log in with Facebook</button>
+                            <button class="btn-fb" id="btn-fb">Log in with Facebook</button>
                         </div>
                         <div class="box-input">
                             <button class="btn-gl">Log in with Google+</button>
@@ -91,6 +91,11 @@
             $(".sing-up").hide();
             $(".log-in").hide();
         })
+
+        $(".btn-gl").click(function(){
+            window.open("https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=137249259650-q2vgft7r8hg4phhugiaj1gqco7iuqll8.apps.googleusercontent.com&redirect_uri=http://localhost:8000/oauth2callbackgoogle&scope=email");
+        })
+
     </script>
 </body>
 </html>

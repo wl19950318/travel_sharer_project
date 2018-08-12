@@ -1,0 +1,35 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="center-box">
+    <div class="user-list">
+        <div class="add-user">
+        </div>
+        <table class="list-box">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>title</th>
+                    <th>author</th>
+                    <th>remark</th>
+                    <th>comment time</th>
+                    <th>operate</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for note in notes %}
+                <tr>
+                    <td><img src="{{ note.picUrl }}" width="50px" height="50px"></td>
+                    <td>{{ note.title }}</td>
+                    <td>{{ note.author }}</td>
+                    <td>{{ note.remark }}</td>
+                    <td>{{ note.createTime }}</td>
+                    <td><a href="/delArticle/{{ note.id }}" class="delete-comment">Del</a></td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock content%}

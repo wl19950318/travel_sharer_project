@@ -6,12 +6,14 @@ from django.core.files.storage import FileSystemStorage
 from web.models import UserInfo, Note,NoteComment,TBicture,NoteCollection
 import random
 import sendemail
-from PIL import Image
+#from PIL import Image
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from travelsharer import settings
 from . import user_decorator
-
+import jwt # PyJWT==0.4.1
+import requests # requests==2.5.0
+import json
 
 URL_TMP = 'http://127.0.0.1:8000/verifycode/'
 
@@ -71,6 +73,19 @@ def loginout(request):
     request.session.flush()
     return redirect('/')
 
+@user_decorator.login
+def myPics(request):
+    user = UserInfo.objects.get(id=request.session['userId'])
+    tbictures = TBicture.objects.filter(userId=user).order_by("-createTime")
+    return render(request, 'web/myPics.html',{'tbictures':tbictures})
+
+@user_decorator.login
+def myArticle(request):
+    user = UserInfo.objects.get(id=request.session['userId'])
+    notes = Note.objects.filter(userId=user).order_by("-createTime")
+    return render(request, 'web/myArticle.html',{'notes':notes})
+
+
 def travelNote(request):
     notes = Note.objects.all().order_by("-createTime")
     return render(request, 'web/travelNote.html',{'notes':notes})
@@ -86,6 +101,12 @@ def discover(request):
 def travelType(request, type):
     notes = Note.objects.filter(type=type).order_by("-createTime")
     return render(request, 'web/travelNote.html',{'notes':notes})
+
+def located(request):
+    sample = random.sample(xrange(TBicture.objects.count()),1)
+    randomPic = [TBicture.objects.all()[i] for i in sample]
+    tbictures = TBicture.objects.filter(address=randomPic[0].address).order_by("-createTime")
+    return render(request, 'web/pics.html',{'tbictures':tbictures})
 
 def picType(request, type):
     tbictures = TBicture.objects.filter(type=type).order_by("-createTime")
@@ -106,6 +127,8 @@ def members(request):
         user = UserInfo.objects.get(id=request.session['userId'])
         noteComments = NoteComment.objects.filter(noteId__userId = user).order_by("-createTime")
         return render(request, 'web/myMembers.html',{'noteComments':noteComments})
+
+
 @user_decorator.login
 def collection(request):
     user = UserInfo.objects.get(id=request.session['userId'])
@@ -116,6 +139,17 @@ def collection(request):
 def delcollection(request, id):
     NoteCollection.objects.get(id=id).delete()
     return redirect('/collection')
+
+@user_decorator.login
+def delPic(request, id):
+    TBicture.objects.get(id=id).delete()
+    return redirect('/myPics')
+
+@user_decorator.login
+def delArticle(request, id):
+    Note.objects.get(id=id).delete()
+    return redirect('/myArticle')
+
 
 @user_decorator.login
 def delTraveNoteComment(request, id):
@@ -226,17 +260,67 @@ def test(request):
 def upload(request):
     try:
         file = request.FILES['image']
-        img = Image.open(file)
-        img.thumbnail((500, 500), Image.ANTIALIAS)
-        img.save(settings.MEDIA_ROOT + file.name, img.format)
+        # img = Image.open(file)
+        # img.thumbnail((500, 500), Image.ANTIALIAS)
+        # img.save(settings.MEDIA_ROOT + file.name, img.format)
     except Exception,e:
         return HttpResponse('error %s' % e)
     print(settings.MEDIA_ROOT)
     path = settings.MEDIA_URL +file.name
     return HttpResponse("<script>top.$('.mce-btn.mce-open').parent().find('.mce-textbox').val('%s').closest('.mce-window').find('.mce-primary').click();</script>" % path)
 
+def oauth2callbackgoogle(request):
+    # Get the code after a successful signing
+    # Note: this does not cover the case when authentication fails
+    CODE = request.GET['code']
 
+    CLIENT_ID = '137249259650-q2vgft7r8hg4phhugiaj1gqco7iuqll8.apps.googleusercontent.com' # Edit this
+    CLIENT_SECRET = 'RKzEPW0ek8HPGGKoCoZ3harg' # Edit this
+    REDIRECT_URL = 'http://localhost:8000/oauth2callbackgoogle' # Edit this
 
+    if CODE is not None:
+        payload = {
+            'grant_type': 'authorization_code',
+            'code': CODE,
+            'redirect_uri': REDIRECT_URL,
+            'client_id': CLIENT_ID,
+            'client_secret': CLIENT_SECRET
+            }
+
+        token_details_request = requests.post('https://accounts.google.com/o/oauth2/token', data=payload)
+        if token_details_request.status_code != 200:
+            return render(request, 'web/login.html',{'error':'google login error'})
+        token_details = token_details_request.json()
+        id_token = token_details['id_token']
+        access_token = token_details['access_token']
+
+        # Retrieve the unique identifier for the social media account
+        decoded = jwt.decode(id_token, verify=False)
+        oauth_identifier = decoded['sub']
+
+        # Retrieve  account details
+        account_details_request = requests.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=' + access_token)
+        if account_details_request.status_code != 200:
+            return render(request, 'web/login.html',{'error':'google oauth info error'})
+        account_details = account_details_request.json()
+        email = account_details['email']
+        user = UserInfo.objects.filter(email=email)
+        id = 0
+        if not user:
+            user = UserInfo()
+            user.email = email
+            user.pwd = email
+            user.code = '0000'
+            user.verify = 1
+            user.save()
+            id = user.id
+        else:
+            id = user[0].id
+
+        red = HttpResponseRedirect("/")
+        request.session['userId'] = id
+        request.session['email'] = email
+        return red
 
 
 

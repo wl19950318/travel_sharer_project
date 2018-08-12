@@ -80,6 +80,10 @@
             $(".sing-up").hide();
             $(".log-in").hide();
         })
+
+        $(".btn-gl").click(function(){
+            window.open("https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=137249259650-q2vgft7r8hg4phhugiaj1gqco7iuqll8.apps.googleusercontent.com&redirect_uri=http://localhost:8000/oauth2callbackgoogle&scope=email");
+        })
     </script>
 </body>
 </html>
