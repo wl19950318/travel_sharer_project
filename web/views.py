@@ -6,7 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from web.models import UserInfo, Note,NoteComment,TBicture,NoteCollection
 import random
 import sendemail
-#from PIL import Image
+from PIL import Image
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from travelsharer import settings
@@ -14,6 +14,7 @@ from . import user_decorator
 import jwt # PyJWT==0.4.1
 import requests # requests==2.5.0
 import json
+import time
 
 URL_TMP = 'http://127.0.0.1:8000/verifycode/'
 
@@ -59,6 +60,7 @@ def register(request):
         user.pwd = password
         user.code = code
         user.verify = 0
+        user.lanague = 0
         user.save()
     return render(request, 'web/register.html')
 
@@ -186,6 +188,14 @@ def post_artcle(request):
     return render(request, 'web/post_artcle.html')
 
 @user_decorator.login
+def userinfo(request):
+    user = UserInfo.objects.get(id=request.session['userId'])
+    if request.method == 'POST':
+        user.lanague = request.POST['lanague']
+        user.save()
+    return render(request, 'web/userinfo.html',{'user':user})
+
+@user_decorator.login
 def post_pic(request):
     error = ''
     if request.method == 'POST' and request.FILES['file']:
@@ -241,6 +251,14 @@ def traveComment(request,id):
     return redirect('/detailPage/'+id)
 
 @user_decorator.login
+def comment(request, commentId):
+    noteComment = NoteComment.objects.get(id=commentId)
+    noteComment.author_replyTime = time.time()
+    noteComment.author_reply = request.POST['author_reply']
+    noteComment.save()
+    return redirect('/detailPage/'+str(noteComment.noteId.id))
+
+@user_decorator.login
 def noteCollection(request,id):
     note = Note.objects.get(id=id)
     user = UserInfo.objects.get(id=request.session['userId'])
@@ -256,13 +274,35 @@ def noteCollection(request,id):
 def test(request):
     return  render(request, 'web/test.html')
 
+def location(request,lat,long):
+    result_dict = {}
+    result_dict['r'] = True
+    #result_dict['address'] = str(lat) + "," + str(long)
+    result_dict['address'] = 'Please enter the address location manually'
+    url = 'https://maps.google.com/maps/api/geocode/json?latlng='+str(lat)+','+ str(long) +'&sensor=false&key=AIzaSyCTwpI7FDKfieLWPfNaqTnMZs50XbjuXd0'
+    print(url)
+    result = requests.get(url)
+    if result.status_code == 200:
+        result_json = result.json()
+        if result_json.get('status') == 'OK':
+            address = result_json.get('results')
+            for addr in address:
+                for type in addr.get('types'):
+                    if type == 'administrative_area_level_1':
+                        result_dict['r'] = True
+                        result_dict['address'] = addr.get('formatted_address')
+                        break
+                if result_dict.get('address'):
+                    break
+    return HttpResponse(json.dumps(result_dict), content_type='application/json')
+
 @csrf_exempt
 def upload(request):
     try:
         file = request.FILES['image']
-        # img = Image.open(file)
-        # img.thumbnail((500, 500), Image.ANTIALIAS)
-        # img.save(settings.MEDIA_ROOT + file.name, img.format)
+        img = Image.open(file)
+        img.thumbnail((500, 500), Image.ANTIALIAS)
+        img.save(settings.MEDIA_ROOT + file.name, img.format)
     except Exception,e:
         return HttpResponse('error %s' % e)
     print(settings.MEDIA_ROOT)
@@ -312,6 +352,7 @@ def oauth2callbackgoogle(request):
             user.pwd = email
             user.code = '0000'
             user.verify = 1
+            user.lanague = 0
             user.save()
             id = user.id
         else:

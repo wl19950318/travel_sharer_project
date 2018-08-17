@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+
+
+{%block content%}
+<div class="center-box">
+    <form class="am-form am-form-horizontal" method="post" data-am-validator>
+         {% csrf_token %}
+        <div class="user-form" >
+            <ul class="add-user-form">
+                <li><span>email</span> <input type="text" value="{{ user.email }}" readonly></li>
+                <li><span>lanague</span>
+                    <select name="lanague">
+                         <option value ="1" {% if user.lanague == '1'  %}selected  {% endif %}  >English</option>
+                         <option value ="2" {% if user.lanague == '2'  %}selected  {% endif %} >Japanese</option>
+                         <option value ="3" {% if user.lanague == '3'  %}selected  {% endif %}>French</option>
+                         <option value ="4" {% if user.lanague == '4'  %}selected  {% endif %}>German</option>
+                    </select>
+                </li>
+            </ul>
+            <div class="add-btn">
+                <button>确定</button>
+            </div>
+        </div>
+    </form>
+</div>
+{%endblock content%}

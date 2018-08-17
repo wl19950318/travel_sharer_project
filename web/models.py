@@ -10,6 +10,7 @@ class UserInfo(models.Model):
     pwd = models.CharField(max_length=100)
     code = models.IntegerField()
     verify = models.CharField(max_length=2)
+    lanague = models.CharField(max_length=2)
 
     def __str__(self):
         return self.email
@@ -35,6 +36,8 @@ class NoteComment(models.Model):
     noteId = models.ForeignKey(Note)
     comment = models.CharField(max_length=500)
     createTime = models.DateTimeField(auto_now=True)
+    author_reply = models.CharField(max_length=500, null=True)
+    author_replyTime = models.DateTimeField(auto_now=True,null=True)
 
     def __str__(self):
         return self.comment

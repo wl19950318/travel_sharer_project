@@ -767,6 +767,18 @@
     margin-left: 10px;
 }
 
+.add-user-form_input_x {
+    height: 35px;
+    line-height: 35px;
+    border: 1px solid #E8E8E8;
+    border-radius: 3px;
+    padding: 0 10px;
+    box-sizing: border-box;
+    outline: none;
+    width: 55%;
+    margin-left: 10px;
+}
+
 .add-user-form li select {
     height: 35px;
     line-height: 35px;

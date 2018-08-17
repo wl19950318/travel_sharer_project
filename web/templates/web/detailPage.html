@@ -57,10 +57,9 @@
                            </div>
                      </form>
                        <div class="comment-list">
-                            <div>{{ noteComments|length }}条评论</div>
+                            <div>{{ noteComments|length }} comment</div>
 
                             <div class="comment-list-box">
-
                                 {% for noteComment in noteComments %}
                                     <div class="comment-block">
                                         <img src="/static/img/twitter.png" class="comment-img">
@@ -70,6 +69,27 @@
                                             <p class="comment-detail">{{ noteComment.comment }}</p>
                                         </div>
                                     </div>
+                                    {% if noteComment.author_reply  %}
+                                        <div class="comment-block">
+                                        <img src="/static/img/head.png" class="comment-img">
+                                        <div class="comment-content">
+                                            <p class="comment-date">{{ noteComment.author_replyTime }}</p>
+                                            <p class="comment-detail">{{ noteComment.author_reply }}</p>
+                                        </div>
+                                    </div>
+                                    {% elif not noteComment.author_reply  and request.session.userId == note.userId.id %}
+                                        <form class="am-form" action="/comment/{{ noteComment.id }}/" method="post">
+                                            {% csrf_token %}
+                                               <div class="input-comment">
+                                                   <textarea name="author_reply" id="author_reply" placeholder="author write comment"></textarea>
+                                                   <div class="submit-comment">
+                                                       <button class="confirm-submit" type="submit">submit</button>
+                                                   </div>
+                                               </div>
+                                         </form>
+                                    {% endif %}
+
+
                                 {% endfor %}
                             </div>
                         </div>

@@ -4,7 +4,7 @@
 
                 <img class="login-img" src="/static/img/head.png" alt="">
                  {%if request.session.email|default:'' != ''%}
-                    <a href="/"><span>{{request.session.email}}</span></a>|<a href="/loginout"><span>login out</span></a>
+                    <a href="/userinfo"><span>{{request.session.email}}</span></a>|<a href="/loginout"><span>login out</span></a>
                 {% else %}
                      <a href="/login"><span>Log In</span></a> <a href="/register"><span>/Sign Up</span></a>
                 {% endif %}
