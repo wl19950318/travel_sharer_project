@@ -148,6 +148,49 @@ a {
 .nav-detail li:hover .nav-second-nav {
     display: block;
 }
+
+.login-more {
+  width: 14px;
+  margin-left: 10px;
+  vertical-align: initial;
+}
+
+.more-nav {
+  display: none;
+  position: absolute;
+  z-index: 2;
+  background: #fff; 
+  width: 50%;
+  margin-left: 30px;
+  margin-top: 14px;
+}
+
+.more-nav li {
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  color: #8AA2C5;
+  white-space: normal;
+  font-size: 15px;
+  font-family: basic,sans-serif;
+  list-style: none;
+}
+
+.more-nav li:hover {
+  color: #999
+}
+
+.more-nav .line-li {
+  padding: 2px 10px;
+}
+
+.line {
+  width: 80%;
+  margin: auto;
+  height: 1px;
+  border-top: 1px solid #8AA2C5;
+}
+
 /* 导航 end */
 
 /* 中部 start */

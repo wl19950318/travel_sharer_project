@@ -15,12 +15,15 @@ import jwt # PyJWT==0.4.1
 import requests # requests==2.5.0
 import json
 import time
+import re
 
 URL_TMP = 'http://127.0.0.1:8000/verifycode/'
 
 def index(request):
-    sample = random.sample(xrange(Note.objects.count()),3)
-    notes = [Note.objects.all()[i] for i in sample]
+    notes = []
+    if Note.objects.count() > 3:
+        sample = random.sample(xrange(Note.objects.count()),3)
+        notes = [Note.objects.all()[i] for i in sample]
     return render(request, 'web/index.html', {'notes':notes})
 
 def login(request):
@@ -46,6 +49,8 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         repassword = request.POST['repassword']
+        if email == '' or re.match(r'[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z_.]{0,19}ac.uk',email) == None:
+            return render(request, 'web/register.html',{'error':'Email error'})
         if password != repassword:
             return render(request, 'web/register.html',{'error':'Two passwords do not match'})
         count = UserInfo.objects.filter(email=email).count()
@@ -62,7 +67,7 @@ def register(request):
         user.verify = 0
         user.lanague = 0
         user.save()
-    return render(request, 'web/register.html')
+    return render(request, 'web/register.html',{'error':'go mailbox verify code'})
 
 def verifycode(request,code):
     users = UserInfo.objects.filter(code=code,verify=0)
@@ -96,6 +101,18 @@ def pics(request):
     tbictures = TBicture.objects.all().order_by("-createTime")
     return render(request, 'web/pics.html',{'tbictures':tbictures})
 
+def sort_user(request, sort):
+    users = []
+    if sort == '0':
+        users = UserInfo.objects.all().order_by("-createTime")
+    else:
+        users = UserInfo.objects.all().order_by("createTime")
+    return render(request, 'web/myMembers.html',{'users':users})
+
+def filter_user(request, label):
+    users = UserInfo.objects.filter(label=label).order_by("-createTime")
+    return render(request, 'web/myMembers.html',{'users':users})
+
 def discover(request):
     tbictures = TBicture.objects.order_by("-createTime").all()
     return render(request, 'web/discover.html',{'tbictures':tbictures})
@@ -126,9 +143,9 @@ def members(request):
     if not request.session['userId']:
         return render(request, 'web/members.html')
     else:
-        user = UserInfo.objects.get(id=request.session['userId'])
-        noteComments = NoteComment.objects.filter(noteId__userId = user).order_by("-createTime")
-        return render(request, 'web/myMembers.html',{'noteComments':noteComments})
+        users = UserInfo.objects.all()
+        #noteComments = NoteComment.objects.filter(noteId__userId = user).order_by("-createTime")
+        return render(request, 'web/myMembers.html',{'users':users})
 
 
 @user_decorator.login
@@ -192,8 +209,23 @@ def userinfo(request):
     user = UserInfo.objects.get(id=request.session['userId'])
     if request.method == 'POST':
         user.lanague = request.POST['lanague']
+        user.firstname = request.POST['firstname']
+        user.lastname = request.POST['lastname']
+        user.phone = request.POST['phone']
+        user.label = request.POST['label']
         user.save()
     return render(request, 'web/userinfo.html',{'user':user})
+
+
+def user_pic(request):
+    file = request.FILES['file']
+    user = UserInfo.objects.get(id=request.session['userId'])
+    fs = FileSystemStorage()
+    filename = fs.save(file.name, file)
+    uploaded_file_url = fs.url(filename)
+    user.pic = uploaded_file_url
+    user.save()
+    return redirect('/userinfo')
 
 @user_decorator.login
 def post_pic(request):
@@ -276,12 +308,8 @@ def test(request):
 
 def location(request,lat,long):
     result_dict = {}
-    result_dict['r'] = True
-    #result_dict['address'] = str(lat) + "," + str(long)
-    result_dict['address'] = 'Please enter the address location manually'
-    url = 'https://maps.google.com/maps/api/geocode/json?latlng='+str(lat)+','+ str(long) +'&sensor=false&key=AIzaSyCTwpI7FDKfieLWPfNaqTnMZs50XbjuXd0'
-    print(url)
-    result = requests.get(url)
+    result_dict['r'] = False
+    result = requests.get('http://maps.google.com/maps/api/geocode/json?latlng='+str(lat)+','+ str(long) +'&sensor=false&key=')
     if result.status_code == 200:
         result_json = result.json()
         if result_json.get('status') == 'OK':

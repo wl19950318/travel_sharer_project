@@ -44,7 +44,7 @@
     flex: 0 0 50%;
     /* height: 362px; */
     min-height: 362px;
-   /* background: url(../img/noteImg.png) no-repeat;*/
+    background: url(../img/noteImg.png) no-repeat;
     background-size: 100% 100%;
 }
 
@@ -622,7 +622,7 @@
     border-bottom: 1px solid rgb(245, 245, 245);
 }
 
-.delete-comment {
+.delete-user {
     color: #FF6161;
     cursor: pointer;
 }
@@ -765,31 +765,7 @@
     outline: none;
     width: 75%;
     margin-left: 10px;
-}
-
-.add-user-form_input_x {
-    height: 35px;
-    line-height: 35px;
-    border: 1px solid #E8E8E8;
-    border-radius: 3px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    outline: none;
-    width: 55%;
-    margin-left: 10px;
-}
-
-.add-user-form li select {
-    height: 35px;
-    line-height: 35px;
-    border: 1px solid #E8E8E8;
-    border-radius: 3px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    outline: none;
-    width: 75%;
-    margin-left: 10px;
-}
+} 
 
 .add-user-form li textarea {
     resize: none;

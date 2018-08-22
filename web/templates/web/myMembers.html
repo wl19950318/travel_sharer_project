@@ -1,33 +1,281 @@
 {%extends 'base.html'%}
 
 {%block content%}
-<div class="center-box">
-    <div class="user-list">
-        <div class="add-user">
+    <div class="center-box">
+        <!-- 未登录样式 start -->
+        <div class="member-box" style="display: none">
+            <p>Log In to Connect With Members</p>
+            <p>View and follow other members, leave comments & more.</p>
+            <div class="member-btn">
+                <a href="login.html"><span> Log In</span></a>
+            </div>
         </div>
-        <table class="list-box">
-            <thead>
-                <tr>
-                    <th>travel note</th>
-                    <th>email</th>
-                    <th>comment time</th>
-                    <th>comment</th>
-                    <th>operate</th>
-                </tr>
-            </thead>
-            <tbody>
-            {% for noteComment in noteComments %}
-                <tr>
-                    <td><a href="/detailPage/{{ noteComment.noteId.id }}" target="_blank">{{ noteComment.noteId.title }}</a></td>
-                    <td>{{ noteComment.userId.email }}</td>
-                    <td>{{ noteComment.createTime }}</td>
-                    <td>{{ noteComment.comment }}</td>
-                    <td><a href="/delTraveNoteComment/{{ noteComment.id }}" class="delete-comment">Del</a></td>
-                </tr>
-            {% endfor %}
+        <!-- 未登录样式 end -->
+        <!-- 登录后样式 start -->
+        <div class="member-login-for">
+            <div class="member-box-nav">
+                <div class="selece-member">
+                    <div class="change-member" id="c-member">
+                        <span class="choose-text" id="m-text">All members</span>
+                        <div class="status-icon" id="icon-one"><!--图标--></div>
+                    </div>
+                    
+                     <ul class="member-list" id="m-list" style="display: none;">
+                        <li><a href="/members">All members</a></li>
+                        <li><a href="/filter_user/0">Sports</a></li>
+                        <li><a href="/filter_user/1">music</a></li>
+                        <li><a href="/filter_user/2">cood</a></li>
+                     </ul>
+                </div>
+                <div class="sort-by">
+                    <i>Sort by:</i> 
+                    <div class="change-sort" id="c-sort">
+                        <span class="choose-text" id="s-text">Default</span>
+                        <div class="status-icon" id="icon-two"><!--图标--></div>
+                    </div>
+                    <ul class="member-list sort-bt-list" id="s-list" style="display: none;">
+                        <li><a href="/sort_user/0">Default</a></li>
+                        <li><a href="/sort_user/1">Createtimes</a></li>
+                    </ul>
+                </div>
+                <div class="search-member">
+                    <div class="block-list"><!-- 列表选择图 --></div>
+                    <div class="list-list"><!-- 列表选择图 --></div>
+                    <div class="search-css">
+                        <img src="/static/img/memberSearch.png" alt="">
+                        <input type="text" placeholder="Find a member...">
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+            <div class="member-area">
+                <!-- 图片样式 start -->
 
-            </tbody>
-        </table>
+                <div class="member-flat-css" >
+                {% for user in users %}
+                    <div class="flat-block">
+                        <img src="/static/img/detail3.png" class="flat-block-img" alt="">
+                        <p class="flat-block-name">
+                            <a href="#">{{ user.email }}</a>
+                        </p>
+                        <div class="fllower-block">
+                            <div class="f-block-left">
+                                <a href="#">
+                                    <p class="f-block-p">0</p>
+                                    <p class="f-block-p">Fllowers</p>
+                                </a>
+                            </div>
+                            <div class="f-block-line"></div>
+                            <div class="f-block-right">
+                                <a href="">
+                                    <p class="f-block-p">0</p>
+                                    <p class="f-block-p">Fllowing</p>
+                                </a>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="fllower-btn">
+                                Fllow
+                            </div>
+                        </a>
+
+                        <div class="edit-per">
+                            <img src="/static/img/noteMore.png" alt="" class="note-more-list">
+                            <a id="edit-info-click" class="show-report-modal">
+                                <div class="edit-box">Edit Profile</div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                </div>
+                <!-- 图片样式 end -->
+                <!-- 列表样式 start -->
+                <div class="member-list-css" style="display: none;">
+                    <div class="list-block">
+                        <div class="list-block-user">
+                            <img src="/static/img/detail2.png" alt="">
+                            <span>xxx</span>
+                        </div>
+                        <div class="list-block-fllower">
+                            <span> 0 Fllowers</span>
+                            <span> 0 Fllowing</span>
+                            <span class="list-b-f-btn">Fllow</span>
+                        </div>
+                        <div class="edit-per list-edit-per">
+                            <img src="/static/img/noteMore.png" alt="" class="note-more-block">
+                            <a class="show-report-modal">
+                                <div class="edit-box">Edit Profile</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list-block">
+                        <div class="list-block-user">
+                            <img src="/static/img/detail2.png" alt="">
+                            <span>xxx</span>
+                        </div>
+                        <div class="list-block-fllower">
+                            <span> 0 Fllowers</span>
+                            <span> 0 Fllowing</span>
+                            <span class="list-b-f-btn">Fllow</span>
+                        </div>
+                        <div class="edit-per list-edit-per">
+                            <img src="/static/img/noteMore.png" alt="" class="note-more-block">
+                            <a class="show-report-modal">
+                                <div class="edit-box">Edit Profile</div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="list-block">
+                        <div class="list-block-user">
+                            <img src="/static/img/detail2.png" alt="">
+                            <span>xxx</span>
+                        </div>
+                        <div class="list-block-fllower">
+                            <span> 0 Fllowers</span>
+                            <span> 0 Fllowing</span>
+                            <span class="list-b-f-btn">Fllow</span>
+                        </div>
+                        <div class="edit-per list-edit-per">
+                            <img src="/static/img/noteMore.png" alt="" class="note-more-block">
+                            <a class="show-report-modal">
+                                <div class="edit-box">Edit Profile</div>
+                            </a>
+                        </div>
+                    </div>
+                   
+                </div>
+                <!-- 列表样式 end -->
+
+            </div>
+        </div>
+        <!-- 登录后样式 end -->
+        <!-- 弹窗 start -->
+        <div class="model-background" id="modal-background" style="display: none;"></div>
+        <div class="model-body" id="modal" style="display: none;">
+            <div class="model-title">
+                <span class="model-close close-model">
+                    ×
+                </span>
+            </div>
+            <div class="model-content">
+                <h3>Report Member</h3>
+                <p>Help us understand why you’re reporting this member.</p>
+                <div class="report-radio">
+                    <div class="radio-css">
+                        <input type="radio" name="member">
+                        <span>Offensive Content</span>
+                    </div>
+                    <div class="radio-css">
+                        <input type="radio" name="member">
+                        <span>Offensive Media</span>
+                    </div>
+                    <div class="radio-css">
+                        <input type="radio" name="member">
+                        <span>Spam</span>
+                    </div>
+                </div>
+            </div>
+            <div class="model-footer">
+                <button class="cancle-report close-model">Cancel</button>
+                <button class="confirm-report">Report</button>
+            </div>
+        </div>
+        <!-- 弹窗 start -->
     </div>
-</div>
+
 {%endblock content%}
+{%block endscript%}
+    <script>
+    // 登陆成功后点击头像下拉列表 start
+    $('.click-more-nav').click(function () {
+        $('.more-nav').show();
+    })
+    // 登陆成功后点击头像下拉列表 end
+    function tab(list, text, icon) {
+        $(list).toggle();
+        let color = '#000';
+        let backgroundImg = 'url("/static/img/down.png")';
+        if ($(list).css('display') !== 'none') {
+            color = '#00c0c6';
+            backgroundImg = 'url("/static/img/up.png")';
+        } 
+        $(text).css("color", color);
+        $(icon).css("background-image", backgroundImg);
+    }
+    function select(list, text, icon, that) {
+        $(text).html(that.html());
+        $(text).css("color", "#000");
+        $(icon).css("background-image", 'url("/static/img/down.png")');
+        $(list).hide();
+    }
+    // 显示列表选择 start
+    $('#c-member').click(function(){
+        tab('#m-list', '#m-text', '#icon-one');
+    })
+    $('#m-list li').click(function(){
+        select('#m-list', '#m-text', '#icon-one', $(this));
+    })
+    // 显示列表选择 start
+    $('#c-sort').click(function(){
+        tab('#s-list', '#s-text', '#icon-two');
+    })
+    $('#s-list li').click(function(){
+        select('#s-list', '#s-text', '#icon-two', $(this));
+    })
+    // 显示列表选择 end
+
+    // 选择图表样式或列表 start
+    $(".block-list").click(function(){
+        $('.member-flat-css').show();
+        $(this).css("background-image", 'url("/static/img/blockListAction.png")');
+        $('.member-list-css').hide();
+        $(".list-list").css("background-image", 'url("/static/img/list.png")');
+    })
+
+    $(".list-list").click(function () {
+        $('.member-flat-css').hide();
+        $(this).css("background-image", 'url("/static/img/listAction.png")');
+        $('.member-list-css').show();
+        $(".block-list").css("background-image", 'url("/static/img/blockList.png")');
+    })
+    // 选择图表样式或列表 end
+    $('.note-more-list').click(function () {
+        const shareBtn = $(this).next();
+        if (shareBtn.css('display') == 'none') {
+            $('.show-report-modal').hide();
+            shareBtn.show();
+        } else {
+            shareBtn.hide();
+        }
+        });
+    $('.note-more-block').click(function () {
+        const shareBtn = $(this).next();
+        if (shareBtn.css('display') == 'none') {
+            $('.show-report-modal').hide();
+            shareBtn.show();
+        } else {
+            shareBtn.hide();
+        }
+    });
+    $('.show-report-modal').click(function() {
+        $('.show-report-modal').hide();
+        $('#modal-background').show();
+        $('#modal').show();
+    });
+
+    // 关闭弹窗 start
+    $('.close-model').click(function(){
+        $('#modal-background').hide();
+        $('#modal').hide();
+    })
+
+    $('.confirm-report').click(function () {
+        $('#modal-background').hide();
+        $('#modal').hide();
+    })
+    
+    // 关闭弹窗 end
+
+    </script>
+{%endblock endscript%}

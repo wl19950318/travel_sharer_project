@@ -1,0 +1,298 @@
+.account-box {
+  font-family: avenir-lt-w01_35-light1475496, sans-serif;
+  font-weight: 400;
+  display: flex;
+  width: 980px;
+  margin: auto;
+  box-sizing: border-box;
+  padding: 30px 30px 10px 30px;;
+}
+
+.a-box-left {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 15px;
+}
+
+.per-info {
+  width: 250px;
+  height: 235px;
+  padding: 30px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.per-img {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+}
+
+.upload-head-img {
+  width: 78px;
+  line-height: 78px;
+  height: 78px;
+  border-radius: 50%;
+  text-align: center;
+  background: rgba(0,0,0,0.3);
+  position: absolute;
+  margin-top: -83px;
+  cursor: pointer;
+}
+
+.upload-head-img img {
+  width: 18px;
+  height: 18px;
+}
+
+.per-name {
+  font-size: 16px;
+  font-family: avenir-lt-w01_35-light1475496, sans-serif;
+  margin-top: 8px;
+  padding: 0 5px;
+}
+
+.per-name > input {
+  border: none;
+  border-bottom: 1px solid #000;
+  width: 100%;
+  height: 25px;
+  line-height: 25px;
+  outline: none;
+  font-size: 16px;
+}
+
+.join-c {
+  color: #3AC0C7;
+  border: 1px solid #3AC0C7;
+  margin-top: 20px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-family: avenir-lt-w01_35-light1475496, sans-serif;
+  font-weight: 400px;
+  text-align: center;
+}
+
+.join-c:hover {
+  color: rgba(58,192,199,.7);
+  border: 1px solid rgba(58,192,199,.7);
+}
+
+.per-edit-btn {
+  margin: 20px -10px 0 -10px;
+  text-align: center;
+}
+
+.per-edit-btn > button {
+  width: 78px;
+  height: 40px;
+  line-height: 40px;
+  margin: 0 10px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.per-edit-btn > .per-edit-cancel {
+  color: #3AC0C7;
+  border: 1px solid #3AC0C7;
+  background: #fff;
+}
+
+.per-edit-btn > .per-edit-confirm {
+  color: #fff;
+  border: 1px solid #3AC0C7;
+  background: #3AC0C7;
+}
+
+.per-edit-btn > .per-edit-confirm:hover {
+  color: #fff;
+  border: 1px solid rgba(58,192,199,.7);
+  background: rgba(58,192,199,.7);
+}
+
+.per-self {
+  width: 250px;
+  border:  1px solid rgba(0,0,0,0.2);
+  margin-top: 40px;
+  padding: 11px 30px;
+  color: #3AC0C7;
+  box-sizing: border-box;
+}
+
+.per-self:hover {
+  color: #999;
+}
+
+.edit-per {
+  position: absolute;
+  margin-top: -190px;
+  margin-left: 190px;
+}
+
+.edit-per img {
+  width: 24px;
+  height: 24px;
+}
+
+.edit-box {
+  border: 1px solid rgba(0,0,0,0.2);
+  width: 130px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  position: absolute;
+  left: -110px;
+  top: 15px;
+  background: #fff;
+  color: #000;
+}
+
+.a-box-right {
+  flex: 2;
+  box-sizing: border-box;
+  padding: 70px 10px 0 10px; 
+}
+
+.a-box-right > h4 {
+  font-family: "eb garamond", serif;
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.edit-tip {
+  font-size: 15px;
+  padding: 5px 0;
+}
+
+.a-box-right > hr {
+  margin: 30px 0;
+  background-color:#ddd;
+  height: 1px;
+  border: none;
+}
+
+.edit-email {
+  margin-bottom: 20px;
+}
+
+.edit-title {
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.edit-tip-box {
+  display: inline-block;
+}
+
+.edit-tip-img img {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.edit-tip-img:hover +.edit-email-tip {
+  display: block;
+}
+
+
+.edit-email-tip {
+  display: none;
+  position: absolute;
+  font-size: 14px;
+  width: 150px;
+  height: 45px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  margin-top: -70px;
+  margin-left: -60px;
+}
+
+.edit-url {
+  margin-bottom: 20px;
+}
+
+.edit-url-tip {
+  font-size: 15px;
+  color: rgba(0,0,0,.2);
+  margin: 5px 0;
+}
+
+.url-show {
+  font-size: 15px;
+  color: #000;
+  margin-bottom: 20px;
+}
+
+.url-input {
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,.2);
+  font-size: 15px;
+}
+
+.edit-basic-info {
+  margin: 10px -10px 0;
+}
+
+.basic-box {
+  float: left;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  height: 100px;;
+}
+
+.basic-input {
+  width: 100%;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid rgba(0,0,0,.2);
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.basic-email-tip {
+  font-size: 13px;
+  color: rgba(0,0,0,0.2);
+  margin-top: 5px;
+}
+
+.basic-opera {
+  float: right;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.upload-info-btn {
+  background: rgb(58,192,199);
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  text-align: center;
+}
+
+.upload-info-cancel {
+  height: 40px;
+  line-height: 40px;
+}
+
+.upload-info-cancel a {
+  color: #000;
+  text-decoration: underline; 
+}
+
+.upload-ok {
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
+}
+
+#updated {
+  display: none;
+}

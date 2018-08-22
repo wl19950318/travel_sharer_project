@@ -11,6 +11,13 @@ class UserInfo(models.Model):
     code = models.IntegerField()
     verify = models.CharField(max_length=2)
     lanague = models.CharField(max_length=2)
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    contactemail = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    pic = models.CharField(max_length=100)
+    label = models.CharField(max_length=100)
+    createTime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.email
