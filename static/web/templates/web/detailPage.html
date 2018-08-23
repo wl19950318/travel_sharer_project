@@ -1,0 +1,146 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="center-box">
+    <div class="note-box">
+        <ul class="note-title">
+            <li class="note-title-li title-action"> <a href="/travelNote">All Posts</a></li>
+            <li class="note-title-li"> <a href="/travelType/1">Eat</a></li>
+            <li class="note-title-li"><a href="/travelType/2">Travel</a></li>
+            <li class="note-title-li"><a href="/travelType/3">Relax</a></li>
+        </ul>
+
+        <div class="note-content">
+            <div class="note-block">
+                <article class="detail-article">
+                    <div class="detail-article-content">
+                        <div class="detail-user-info">
+                            <span><a href="" class="user-name-a"><span>{{ note.author }}</span></a>  {{ note.createTime }}</span>
+                            <img class="detail-more-img" src="{{ note.picUrl }}" alt="">
+                        </div>
+                        <div class="share-block detail-article-share">
+                            <img src="/static/img/share.png" alt="">
+                            <span>Share Post</span>
+                        </div>
+                        <div class="note-content-title detail-article-title">
+                            {{ note.title }}
+                        </div>
+                        <div class="detail-update">
+                            {{ note.createTime }}
+                        </div>
+                        <div class="detail-page-content">
+                            {% autoescape off %}
+                                {{ note.content }}
+                            {% endautoescape %}
+
+                            <div class="page-content-share">
+                                <a href="#"><img src="/static/img/facebook.png" alt=""></a>
+                                <a href="#"><img src="/static/img/twitter.png" alt=""></a>
+                                <a href="#"><img src="/static/img/google.png" alt=""></a>
+                                <a href="#"><img src="/static/img/link.png" alt=""></a>
+                                <a href="/travelNote"><span class="share-relax">Relax</span></a>
+                            </div>
+                            <div class="page-content-view">
+                                <span>{{ note.views}} views</span>
+                                <a href="/travelLike/{{ note.id }}"><span class="click-like"> {{ note.likes}}  <img src="/static/img/like.png" alt=""></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-comment">
+                     <form class="am-form" action="/traveComment/{{ note.id }}/" method="post">
+                        {% csrf_token %}
+                           <div class="input-comment">
+                               <textarea name="comment" id="comment" placeholder="write comment"></textarea>
+                               <div class="submit-comment">
+                                   <button class="confirm-submit" type="submit">submit</button>
+                               </div>
+                           </div>
+                     </form>
+                       <div class="comment-list">
+                            <div>{{ noteComments|length }} comment</div>
+
+                            <div class="comment-list-box">
+                                {% for noteComment in noteComments %}
+                                    <div class="comment-block">
+                                        <img src="/static/img/twitter.png" class="comment-img">
+                                        <div class="comment-content">
+                                            <p class="comment-name">{{ noteComment.userId.email }}</p>
+                                            <p class="comment-date">{{ noteComment.createTime }}</p>
+                                            <p class="comment-detail">{{ noteComment.comment }}</p>
+                                        </div>
+                                    </div>
+                                    {% if noteComment.author_reply  %}
+                                        <div class="comment-block">
+                                        <img src="/static/img/head.png" class="comment-img">
+                                        <div class="comment-content">
+                                            <p class="comment-date">{{ noteComment.author_replyTime }}</p>
+                                            <p class="comment-detail">{{ noteComment.author_reply }}</p>
+                                        </div>
+                                    </div>
+                                    {% elif not noteComment.author_reply  and request.session.userId == note.userId.id %}
+                                        <form class="am-form" action="/comment/{{ noteComment.id }}/" method="post">
+                                            {% csrf_token %}
+                                               <div class="input-comment">
+                                                   <textarea name="author_reply" id="author_reply" placeholder="author write comment"></textarea>
+                                                   <div class="submit-comment">
+                                                       <button class="confirm-submit" type="submit">submit</button>
+                                                   </div>
+                                               </div>
+                                         </form>
+                                    {% endif %}
+
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="recent-posts">
+                    <div class="recent-posts-title">
+                        <span>Recent Posts</span>
+                        <a href="/travelNote"><span class="see-all-posts">See All</span></a>
+                    </div>
+                    <div class="recent-posts-box">
+                        {% for note in notes %}
+                            <div class="post-detail">
+                                <div class="post-detail-box">
+                                    <img src="{{ note.picUrl }}" alt="" width="280px" height="165px">
+                                    <div class="post-content">
+                                        <div class="post-content-title">{{ note.title }}</div>
+                                        <div class="post-content-view">
+                                            <span class="post-content-view-left">
+                                                <img src="/static/img/eye.png" alt=""> 4
+                                                <a href="/detailPage/{{ note.id }}">Write a comment</a>
+                                            </span>
+                                            <span class="click-like">1 <img src="/static/img/like.png" alt=""></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </article>
+                {%if request.session.email|default:'' == ''%}
+                    <article class="detail-article leave-login">
+                        <div class="detail-article-content leave-login-box">
+                            <a href="login.html"><span>Log in</span> to leave a comment!</a>
+                        </div>
+                    </article>
+                {% endif %}
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{%endblock content%}
+
+
+{%block endscript%}
+<script>
+    $('.detail-more-img').click(function() {
+        $('.detail-article-share').toggle();
+    });
+</script>
+{%endblock endscript%}

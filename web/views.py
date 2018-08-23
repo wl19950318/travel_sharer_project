@@ -6,7 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from web.models import UserInfo, Note,NoteComment,TBicture,NoteCollection
 import random
 import sendemail
-from PIL import Image
+#from PIL import Image
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from travelsharer import settings
@@ -21,7 +21,7 @@ URL_TMP = 'http://127.0.0.1:8000/verifycode/'
 
 def index(request):
     notes = []
-    if Note.objects.count() > 3:
+    if Note.objects.count() >= 3:
         sample = random.sample(xrange(Note.objects.count()),3)
         notes = [Note.objects.all()[i] for i in sample]
     return render(request, 'web/index.html', {'notes':notes})
@@ -49,8 +49,8 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         repassword = request.POST['repassword']
-        if email == '' or re.match(r'[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z_.]{0,19}ac.uk',email) == None:
-            return render(request, 'web/register.html',{'error':'Email error'})
+        if email == '' or re.match(r'[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z_.]{0,19}ac.uk', email) == None:
+            return render(request, 'web/register.html',{'error':'Email error,please entry student email'})
         if password != repassword:
             return render(request, 'web/register.html',{'error':'Two passwords do not match'})
         count = UserInfo.objects.filter(email=email).count()
@@ -67,7 +67,7 @@ def register(request):
         user.verify = 0
         user.lanague = 0
         user.save()
-    return render(request, 'web/register.html',{'error':'go mailbox verify code'})
+    return render(request, 'web/register.html')
 
 def verifycode(request,code):
     users = UserInfo.objects.filter(code=code,verify=0)
@@ -101,6 +101,12 @@ def pics(request):
     tbictures = TBicture.objects.all().order_by("-createTime")
     return render(request, 'web/pics.html',{'tbictures':tbictures})
 
+
+def find_user(request):
+    key = request.POST['key']
+    users = UserInfo.objects.filter(email__contains=key)
+    return render(request, 'web/myMembers.html',{'users':users})
+
 def sort_user(request, sort):
     users = []
     if sort == '0':
@@ -122,9 +128,11 @@ def travelType(request, type):
     return render(request, 'web/travelNote.html',{'notes':notes})
 
 def located(request):
-    sample = random.sample(xrange(TBicture.objects.count()),1)
-    randomPic = [TBicture.objects.all()[i] for i in sample]
-    tbictures = TBicture.objects.filter(address=randomPic[0].address).order_by("-createTime")
+    tbictures = []
+    if TBicture.objects.count() >= 3:
+        sample = random.sample(xrange(TBicture.objects.count()),1)
+        randomPic = [TBicture.objects.all()[i] for i in sample]
+        tbictures = TBicture.objects.filter(address=randomPic[0].address).order_by("-createTime")
     return render(request, 'web/pics.html',{'tbictures':tbictures})
 
 def picType(request, type):
@@ -328,9 +336,9 @@ def location(request,lat,long):
 def upload(request):
     try:
         file = request.FILES['image']
-        img = Image.open(file)
-        img.thumbnail((500, 500), Image.ANTIALIAS)
-        img.save(settings.MEDIA_ROOT + file.name, img.format)
+        # img = Image.open(file)
+        # img.thumbnail((500, 500), Image.ANTIALIAS)
+        # img.save(settings.MEDIA_ROOT + file.name, img.format)
     except Exception,e:
         return HttpResponse('error %s' % e)
     print(settings.MEDIA_ROOT)

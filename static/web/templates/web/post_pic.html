@@ -1,0 +1,65 @@
+{%extends 'base.html'%}
+
+
+{%block content%}
+<div class="center-box">
+    <form class="am-form am-form-horizontal" method="post" enctype="multipart/form-data" data-am-validator>
+         {% csrf_token %}
+        <div class="user-form" >
+            <ul class="add-user-form">
+                <li><span>title</span> <input type="text" name="title"></li>
+                <li><span>remark</span> <input type="text" name="remark"></li>
+                <li><span>locate</span> <input type="text" name="address" id="address"></li>
+                <li><span>type</span>
+                    <select name="type">
+                         <option value ="1" >Musician</option>
+                         <option value ="2" >Food lover</option>
+                         <option value ="3" >Photographer</option>
+                         <option value ="4" >Sports</option>
+                    </select>
+                </li>
+                <li><span>disc type</span>
+                    <select name="discover_type">
+                         <option value ="1" >Food</option>
+                         <option value ="2" >Destination</option>
+                         <option value ="3" >Hotel</option>
+                         <option value ="4" >Summer</option>
+                    </select>
+                </li>
+
+                <li><span>pic</span>
+                    <input type="file" id="file" name="file"/>
+                </li>
+            </ul>
+            <div class="add-btn">
+                <button type="button" onclick="getLocation()">Get Locate</button>
+                <button>Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{%endblock content%}
+{%block endscript%}
+    <script>
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            //x.innerHTML = "Geolocation is not supported by this browser.";}
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    function showPosition(position) {
+        var lat = position.coords.latitude;
+        var long = position.coords.longitude;
+        $.get("/location/"+lat+"/" + long + "/", function(result){
+            if(result.r){
+                $('#address').val(result.address);
+            }else{
+                alert('get locate error!');
+            }
+          })
+    }
+</script>
+{%endblock endscript%}
