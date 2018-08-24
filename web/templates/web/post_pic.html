@@ -7,12 +7,12 @@
          {% csrf_token %}
         <div class="user-form" >
             <ul class="add-user-form">
-                <li><span>title</span> <input type="text" name="title"></li>
-                <li><span>remark</span> <input type="text" name="remark"></li>
-                <li><span>locate</span> <input type="text" name="address" id="address"></li>
+                <li><span>title</span> <input type="text" name="title" required="required"></li>
+                <li><span>remark</span> <input type="text" name="remark" required="required"></li>
+                <li><span>locate</span> <input type="text" name="address" id="address" required="required"></li>
                 <li><span>type</span>
                     <select name="type">
-                         <option value ="1" >Musician</option>
+                         <option value ="1" selected >Musician</option>
                          <option value ="2" >Food lover</option>
                          <option value ="3" >Photographer</option>
                          <option value ="4" >Sports</option>
@@ -20,7 +20,7 @@
                 </li>
                 <li><span>disc type</span>
                     <select name="discover_type">
-                         <option value ="1" >Food</option>
+                         <option value ="1"  selected>Food</option>
                          <option value ="2" >Destination</option>
                          <option value ="3" >Hotel</option>
                          <option value ="4" >Summer</option>
@@ -28,7 +28,7 @@
                 </li>
 
                 <li><span>pic</span>
-                    <input type="file" id="file" name="file"/>
+                    <input type="file" id="file" name="file" required="required"/>
                 </li>
             </ul>
             <div class="add-btn">

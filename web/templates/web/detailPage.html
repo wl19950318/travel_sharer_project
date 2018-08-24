@@ -50,7 +50,7 @@
                      <form class="am-form" action="/traveComment/{{ note.id }}/" method="post">
                         {% csrf_token %}
                            <div class="input-comment">
-                               <textarea name="comment" id="comment" placeholder="write comment"></textarea>
+                               <textarea name="comment" id="comment" placeholder="write comment" required="required"></textarea>
                                <div class="submit-comment">
                                    <button class="confirm-submit" type="submit">submit</button>
                                </div>
@@ -81,7 +81,7 @@
                                         <form class="am-form" action="/comment/{{ noteComment.id }}/" method="post">
                                             {% csrf_token %}
                                                <div class="input-comment">
-                                                   <textarea name="author_reply" id="author_reply" placeholder="author write comment"></textarea>
+                                                   <textarea name="author_reply" id="author_reply" placeholder="author write comment" required="required"></textarea>
                                                    <div class="submit-comment">
                                                        <button class="confirm-submit" type="submit">submit</button>
                                                    </div>

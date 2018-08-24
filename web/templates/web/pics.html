@@ -19,11 +19,13 @@
             </div>
             <div  class="top-bottom">
                 <div class="bottom-label">
+                    <br>
                     <a href="/picType/1"><div class="bottom-label-span">Musician</div></a>
                 </div>
                 <div class="bottom-label">
                     <a href="/picType/2"><div class="bottom-label-span">Food lover</div></a>
                 </div>
+                <br>
                 <div class="bottom-label">
                     <a href="/picType/3"><div class="bottom-label-span">Photographer</div></a>
                 </div>
@@ -31,7 +33,7 @@
                     <a href="/picType/4"><div class="bottom-label-span">Sports</div></a>
                 </div>
                 <div class="btn-tip">
-                    <span>Here are different labels can be used to filter traveller/content in this page</span>
+                    <span>   </span>
                 </div>
             </div>
         </div>
@@ -42,6 +44,7 @@
                     <h3>{{ pic.title }}</h3>
                     <hr>
                     <div class="block-detail">
+                        {{ pic.userId.email }}({{ pic.userId.lanague }}<br>)<br>
                         {{ pic.remark }}
                     </div>
                     <div class="block-detail-img">

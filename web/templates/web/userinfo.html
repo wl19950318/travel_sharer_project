@@ -72,24 +72,24 @@
         <div class="edit-basic-info">
           <div class="basic-box">
             <p class="edit-title">First Name</p>
-            <input class="basic-input" type="text" name="firstname" value="{{ user.firstname }}">
+            <input class="basic-input" type="text" name="firstname" value="{{ user.firstname }}" required="required">
           </div>
           <div class="basic-box">
             <p class="edit-title">Last Name</p>
-            <input class="basic-input" type="text"  name="lastname" value="{{ user.lastname }}">
+            <input class="basic-input" type="text"  name="lastname" value="{{ user.lastname }}" required="required">
           </div>
         </div>
         <div class="edit-basic-info">
           <div class="basic-box" style="width: 100%;">
             <p class="edit-title">lanague
             </p>
-            <input class="basic-input" type="text" placeholder="e.g:Engish"  name="lanague" value="{{ user.lanague }}">
+            <input class="basic-input" type="text" placeholder="e.g:Engish"  name="lanague" value="{{ user.lanague }}" required="required">
           </div>
           <div class="basic-box" style="width: 100%;">
             <p class="edit-title">label
             </p>
               <select name="label" class="basic-input">
-                  <option value="0">Sports</option>
+                  <option value="0" selected>Sports</option>
                   <option value="1">Music</option>
                   <option value="2">Cood</option>
               </select>
@@ -98,7 +98,7 @@
           <div class="basic-box" style="width: 100%;">
             <p class="edit-title">Phone
             </p>
-            <input class="basic-input" type="text" placeholder="e.g,+ 1415-189-9090"  name="phone" value="{{ user.phone }}">
+            <input class="basic-input" type="text" placeholder="e.g,+ 1415-189-9090"  name="phone" value="{{ user.phone }}" required="required">
           </div>
           <!-- 一行单个的样式 end -->
         </div>

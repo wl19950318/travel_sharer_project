@@ -49,8 +49,8 @@ def register(request):
         email = request.POST['email']
         password = request.POST['password']
         repassword = request.POST['repassword']
-        if email == '' or re.match(r'[0-9a-zA-Z_]{0,19}@[0-9a-zA-Z_.]{0,19}ac.uk', email) == None:
-            return render(request, 'web/register.html',{'error':'Email error,please entry student email'})
+        if email == '' or re.match(r'[0-9a-zA-Z_.@]{0,40}ac.uk',email) == None:
+            return render(request, 'web/register.html',{'error':'Email error'})
         if password != repassword:
             return render(request, 'web/register.html',{'error':'Two passwords do not match'})
         count = UserInfo.objects.filter(email=email).count()
@@ -67,7 +67,7 @@ def register(request):
         user.verify = 0
         user.lanague = 0
         user.save()
-    return render(request, 'web/register.html')
+    return render(request, 'web/register.html',{'error':'Send email success '})
 
 def verifycode(request,code):
     users = UserInfo.objects.filter(code=code,verify=0)
