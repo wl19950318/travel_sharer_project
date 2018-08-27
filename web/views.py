@@ -6,7 +6,7 @@ from django.core.files.storage import FileSystemStorage
 from web.models import UserInfo, Note,NoteComment,TBicture,NoteCollection
 import random
 import sendemail
-#from PIL import Image
+from PIL import Image
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from travelsharer import settings
@@ -336,9 +336,9 @@ def location(request,lat,long):
 def upload(request):
     try:
         file = request.FILES['image']
-        # img = Image.open(file)
-        # img.thumbnail((500, 500), Image.ANTIALIAS)
-        # img.save(settings.MEDIA_ROOT + file.name, img.format)
+        img = Image.open(file)
+        img.thumbnail((500, 500), Image.ANTIALIAS)
+        img.save(settings.MEDIA_ROOT + file.name, img.format)
     except Exception,e:
         return HttpResponse('error %s' % e)
     print(settings.MEDIA_ROOT)

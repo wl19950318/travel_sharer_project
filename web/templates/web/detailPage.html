@@ -16,7 +16,7 @@
                     <div class="detail-article-content">
                         <div class="detail-user-info">
                             <span><a href="" class="user-name-a"><span>{{ note.author }}</span></a>  {{ note.createTime }}</span>
-                            <img class="detail-more-img" src="{{ note.picUrl }}" alt="">
+
                         </div>
                         <div class="share-block detail-article-share">
                             <img src="/static/img/share.png" alt="">
@@ -29,6 +29,7 @@
                             {{ note.createTime }}
                         </div>
                         <div class="detail-page-content">
+                         <img  src="{{ note.picUrl }}" height="500" width="720" alt="">
                             {% autoescape off %}
                                 {{ note.content }}
                             {% endautoescape %}

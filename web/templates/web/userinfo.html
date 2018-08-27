@@ -6,7 +6,12 @@
     <div class="account-box">
       <div class="a-box-left">
         <div class="per-info" id="now-info">
-          <img src="/static/img/head.png" class="per-img" alt="">
+
+            {%if user.pic != ''%}
+                        <img src="{{ user.pic }}" class="per-img" alt="">
+                   {% else %}
+                        <img src="/static/img/head.png" class="per-img" alt="">
+                   {% endif %}
           <div class="per-name">email</div>
           <a href="#">
             <div class="join-c">
@@ -28,7 +33,12 @@
               <img src="/static/img/detail1.png" id="edit-avatar" class="per-img" alt="">
               <div class="upload-head-img">
                 <!-- <input type="file" name="file" accept="image/*" id="upload" style="opacity: 0;width: 0;height: 0;"> -->
-                <input type="file" name="file" id="file" onchange="change(this)" accept="image/*"  style="opacity: 0;width: 0;height: 0;">
+                <input type="file" name="file" id="file" accept="image/*"  >
+                   {%if user.pic != '' %}
+                        <img src="{{ user.pic }}" alt="">
+                   {% else %}
+                        <img src="/static/img/camera.png" alt="">
+                   {% endif %}
                 <img src="/static/img/camera.png" alt="">
               </div>
               <div class="per-name">
